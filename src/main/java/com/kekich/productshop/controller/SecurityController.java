@@ -7,7 +7,6 @@ import com.kekich.productshop.JWT.JwtCore;
 import com.kekich.productshop.model.User;
 import com.kekich.productshop.repository.UserRepository;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.Data;
 import jakarta.servlet.http.Cookie; // ✅ правильный
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,15 +16,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.Duration;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class SecurityController {
 
     private UserRepository userRepository;
@@ -73,9 +69,10 @@ public class SecurityController {
 
         Cookie cookie = new Cookie("jwt", jwt);
         cookie.setHttpOnly(true);
-        cookie.setSecure(false); // только для HTTPS
+        cookie.setSecure(false); // true для HTTPS
         cookie.setPath("/");
-        cookie.setMaxAge(jwtCore.getLifeTime() / 1000); // секунды
+        cookie.setMaxAge(jwtCore.getLifeTime());
+        cookie.setAttribute("SameSite", "None"); // обязательно для кросс-доменных запросов
         response.addCookie(cookie);
 
         return ResponseEntity.ok().build();
