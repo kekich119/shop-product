@@ -25,9 +25,9 @@ export default function ProductCard({ product }) {
         <div className="card p-3 bg-white">
             <Link to={`/products/${product.id}`}>
                 <img
-                    src={product.image}
+                    src={`http://localhost:8080${product.imageUrl}`} // product.imageUrl уже содержит /images/...
                     alt={product.name}
-                    className="w-full h-48 object-cover rounded-xl"
+                    className="w-full rounded-2xl shadow"
                 />
                 <h3 className="mt-3 font-semibold line-clamp-2 min-h-[3rem]">{product.name}</h3>
             </Link>

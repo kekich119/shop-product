@@ -12,7 +12,7 @@ export default function ProductDetails() {
   useEffect(() => {
     async function loadProduct() {
       try {
-        const response = await api.get(`/api/get/product/${id}`) // получаем товар с backend
+        const response = await api.get(`/api/get/product/${id}`, { withCredentials: true })
         setProduct(response.data)
       } catch (e) {
         console.error('Ошибка при загрузке товара:', e)
@@ -31,12 +31,14 @@ export default function ProductDetails() {
 
     try {
       await api.post('/api/add/cart', {
-        user_id: user.id,       // id текущего пользователя
-        productId: product.id, // id товара
-        quantity: 1             // количество
-      })
+        userId: user.id,         // camelCase для backend
+        productId: product.id,   // id товара
+        quantity: 1
+      }, { withCredentials: true })
+      alert('Товар добавлен в корзину!')
     } catch (error) {
       console.error('Ошибка добавления в корзину:', error)
+      alert('Не удалось добавить товар в корзину.')
     }
   }
 
@@ -45,7 +47,11 @@ export default function ProductDetails() {
 
   return (
       <div className="grid md:grid-cols-2 gap-6">
-        <img src={product.image} alt={product.name} className="w-full rounded-2xl shadow" />
+        <img
+            src={`http://localhost:8080${product.imageUrl}`} // product.imageUrl уже содержит /images/...
+            alt={product.name}
+            className="w-full rounded-2xl shadow"
+        />
         <div className="space-y-4">
           <h1 className="text-2xl font-bold">{product.name}</h1>
           <div className="text-2xl font-bold">{product.price.toLocaleString()} ₽</div>

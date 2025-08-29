@@ -19,6 +19,10 @@ public class Product {
     @NotNull
     private int price;
 
+
     private String description;
+
+    @Column(name = "image_url")
+    private String imageUrl;
 
 }
