@@ -14,7 +14,7 @@ export default function ProductCard({ product }) {
         }
 
         try {
-            await api.post('/secured/cart/add', { productId: product.id, quantity: 1 })
+            await api.post('/api/add/cart', { productId: product.id, quantity: 1 })
             alert('Товар добавлен в корзину!')
         } catch (error) {
             console.error('Ошибка добавления в корзину:', error)

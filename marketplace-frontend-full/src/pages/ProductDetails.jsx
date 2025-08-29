@@ -32,7 +32,7 @@ export default function ProductDetails() {
     try {
       await api.post('/api/add/cart', {
         user_id: user.id,       // id текущего пользователя
-        product_id: product.id, // id товара
+        productId: product.id, // id товара
         quantity: 1             // количество
       })
       alert('Товар добавлен в корзину!')

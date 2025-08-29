@@ -3,7 +3,6 @@ package com.kekich.productshop.model;
 import jakarta.persistence.*;
 import lombok.Data;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -15,8 +14,14 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private long user_id;
-    private long product_id;
+    @Column(name = "user_id")
+    private long userId;
+
+    @Column(name = "product_id")
+    private long productId;
+
     private int quantity;
-    private Date added_at;
+
+    @Column(name = "added_at")
+    private Date addedAt;
 }
