@@ -37,7 +37,7 @@ export default function Cart() {
     // Удаляем товар по productId
     const handleRemove = async (productId) => {
         try {
-            await api.delete(`/api/remove/cart/product/${productId}`, { withCredentials: true })
+            await api.delete(`/api/remove/cart/${productId}`, { withCredentials: true })
             setCartItems(prev => prev.filter(item => item.productId !== productId))
         } catch (e) {
             console.error('Ошибка удаления из корзины:', e)

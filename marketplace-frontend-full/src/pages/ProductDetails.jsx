@@ -35,7 +35,6 @@ export default function ProductDetails() {
         productId: product.id, // id товара
         quantity: 1             // количество
       })
-      alert('Товар добавлен в корзину!')
     } catch (error) {
       console.error('Ошибка добавления в корзину:', error)
     }
