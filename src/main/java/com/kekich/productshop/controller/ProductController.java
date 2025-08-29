@@ -2,6 +2,7 @@ package com.kekich.productshop.controller;
 
 import com.kekich.productshop.model.Product;
 import com.kekich.productshop.service.ProductService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,14 @@ public class ProductController {
     @PostMapping("/add/product")
     public Product addProduct(@RequestBody Product product) {
         return productService.addProduct(product);
+    }
+
+    @GetMapping("/get/product/{id}")
+    public ResponseEntity<Product> getProduct(@PathVariable Long id) {
+        productService.findProductById(id);
+        return ResponseEntity.ok().body(productService.findProductById(id));
+
+
     }
 
 }

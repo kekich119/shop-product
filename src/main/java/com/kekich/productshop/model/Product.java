@@ -1,6 +1,7 @@
 package com.kekich.productshop.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
@@ -12,8 +13,10 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @NotNull
     private String name;
 
+    @NotNull
     private int price;
 
     private String description;

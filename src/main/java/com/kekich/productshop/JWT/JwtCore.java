@@ -30,6 +30,7 @@ public class JwtCore {
         UserDetailsImpl userDetails = (UserDetailsImpl) auth.getPrincipal();
         return Jwts.builder()
                 .subject(userDetails.getUsername())
+                .id(String.valueOf(userDetails.getId()))
                 .issuedAt(new Date())
                 .expiration(new Date(System.currentTimeMillis() + lifeTime))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
@@ -43,5 +44,14 @@ public class JwtCore {
                 .parseClaimsJws(token)
                 .getBody()
                 .getSubject();
+    }
+
+    public String getIdFromToken(String token) {
+        return Jwts.parser()
+                .setSigningKey(getSigningKey())
+                .build()
+                .parseClaimsJws(token)   // <- ✅ Подписанный JWT
+                .getBody()
+                .getId();
     }
 }

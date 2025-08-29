@@ -50,7 +50,7 @@ public class TokenFilter extends OncePerRequestFilter {
             try {
                 username = jwtCore.getNameFromToken(jwt);
             } catch (ExpiredJwtException e) {
-                // токен просрочен
+                System.out.println("Expired JWT token");
             }
 
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {

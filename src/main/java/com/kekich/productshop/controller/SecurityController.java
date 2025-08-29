@@ -6,6 +6,7 @@ import com.kekich.productshop.DTO.SignUpRequest;
 import com.kekich.productshop.JWT.JwtCore;
 import com.kekich.productshop.model.User;
 import com.kekich.productshop.repository.UserRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Cookie; // ✅ правильный
 import org.springframework.http.HttpStatus;
@@ -74,7 +75,21 @@ public class SecurityController {
         cookie.setMaxAge(jwtCore.getLifeTime());
         cookie.setAttribute("SameSite", "None"); // обязательно для кросс-доменных запросов
         response.addCookie(cookie);
+        System.out.println("new jwt is created");
 
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/logout")
+    ResponseEntity<?> logout( HttpServletResponse response) {
+        Cookie cookie = new Cookie("jwt", null);
+        cookie.setHttpOnly(true);
+        cookie.setSecure(false);
+        cookie.setPath("/");
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+        SecurityContextHolder.getContext().setAuthentication(null);
+        System.out.println("logged out successfully");
         return ResponseEntity.ok().build();
     }
 }

@@ -1,8 +1,8 @@
 CREATE TABLE "cart"
 (
     id         SERIAL PRIMARY KEY,
-    user_id    INTEGER REFERENCES users(id),
-    product_id INTEGER REFERENCES product (id),
-    quantity   INTEGER,
+    user_id    INTEGER NOT NULL,
+    product_id INTEGER NOT NULL,
+    quantity   INTEGER NOT NULL,
     added_at   DATE
 );
